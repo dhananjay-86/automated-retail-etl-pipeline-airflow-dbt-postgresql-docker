@@ -11,3 +11,7 @@ __pycache__/
 # Log Files
 logs/
 *.log
+
+logs/*.log
+
+python/utils/test_logger.py
