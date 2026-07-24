@@ -1,30 +1,21 @@
-import pandas as pd
-from faker import Faker
-import random
-import os
+from python.generator.customer_generator import generate_customers
+from python.generator.product_generator import generate_products
+from python.generator.order_generator import generate_orders
 
-fake = Faker()
 
-NUM_CUSTOMERS = 1000
+def main():
 
-customers = []
+    print("Generating Customers...")
+    generate_customers()
 
-for customer_id in range(1, NUM_CUSTOMERS + 1):
-    customers.append({
-        "customer_id": customer_id,
-        "first_name": fake.first_name(),
-        "last_name": fake.last_name(),
-        "email": fake.unique.email(),
-        "city": fake.city(),
-    })
+    print("Generating Products...")
+    generate_products()
 
-customers_df = pd.DataFrame(customers)
+    print("Generating Orders...")
+    generate_orders()
 
-os.makedirs("data/raw", exist_ok=True)
+    print("\n✅ Dataset generation completed successfully!")
 
-customers_df.to_csv(
-    "data/raw/customers.csv",
-    index=False
-)
 
-print("✅ customers.csv created successfully!")
+if __name__ == "__main__":
+    main()
