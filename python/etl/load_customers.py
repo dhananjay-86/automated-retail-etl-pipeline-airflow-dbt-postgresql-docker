@@ -1,4 +1,5 @@
 import pandas as pd
+from psycopg2.extras import execute_values
 
 from python.database.connection import get_connection
 from python.utils.logger import logger
@@ -19,21 +20,25 @@ def load_customers():
         insert_query = """
         INSERT INTO raw.customers
         (customer_id, first_name, last_name, email, city)
-        VALUES (%s, %s, %s, %s, %s)
+        VALUES %s
         """
 
-        for _, row in customers_df.iterrows():
-
-            cursor.execute(
-                insert_query,
-                (
-                    int(row["customer_id"]),
-                    row["first_name"],
-                    row["last_name"],
-                    row["email"],
-                    row["city"]
-                )
+        data = [
+            (
+                int(row["customer_id"]),
+                row["first_name"],
+                row["last_name"],
+                row["email"],
+                row["city"]
             )
+            for _, row in customers_df.iterrows()
+        ]
+
+        execute_values(
+            cursor,
+            insert_query,
+            data
+        )
 
         connection.commit()
 
