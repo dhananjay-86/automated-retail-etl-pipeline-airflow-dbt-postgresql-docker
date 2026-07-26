@@ -19,3 +19,6 @@ python/utils/test_logger.py
 dbt_project/retail_analytics/logs/
 dbt_project/retail_analytics/target/
 dbt_project/retail_analytics/dbt_packages/
+
+target/
+dbt_packages/
