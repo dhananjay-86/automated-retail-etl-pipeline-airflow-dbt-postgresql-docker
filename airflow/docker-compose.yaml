@@ -85,6 +85,8 @@ x-airflow-common:
       condition: service_healthy
     postgres:
       condition: service_healthy
+    retail-postgres:
+      condition: service_healthy  
 
 services:
   postgres:
@@ -100,6 +102,27 @@ services:
       interval: 10s
       retries: 5
       start_period: 5s
+    restart: always
+
+  retail-postgres:
+    image: postgres:16
+
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Unique@987
+      POSTGRES_DB: retail_analytics_db
+
+    ports:
+      - "5433:5432"
+
+    volumes:
+      - retail-db-volume:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 10s
+      retries: 5
+
     restart: always
 
   redis:
@@ -334,3 +357,7 @@ services:
 
 volumes:
   postgres-db-volume:
+
+
+
+  retail-db-volume:  
