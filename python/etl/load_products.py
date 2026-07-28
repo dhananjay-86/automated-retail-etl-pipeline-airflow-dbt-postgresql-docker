@@ -1,23 +1,35 @@
 import pandas as pd
-
+from pathlib import Path
 from python.etl.base_loader import load_data
+
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+PRODUCTS_FILE = PROJECT_ROOT / "data" / "raw" / "products.csv"
 
 
 def load_products():
 
-    products_df = pd.read_csv("data/raw/products.csv")
+    products_df = pd.read_csv(PRODUCTS_FILE)
 
     insert_query = """
-    INSERT INTO raw.products
-    (
-        product_id,
-        product_name,
-        category,
-        price,
-        stock_quantity
-    )
-    VALUES %s
-    """
+INSERT INTO raw.products
+(
+    product_id,
+    product_name,
+    category,
+    price,
+    stock_quantity
+)
+
+VALUES %s
+
+ON CONFLICT (product_id)
+
+DO UPDATE SET
+    product_name = EXCLUDED.product_name,
+    category = EXCLUDED.category,
+    price = EXCLUDED.price,
+    stock_quantity = EXCLUDED.stock_quantity;
+"""
 
     data = [
         (

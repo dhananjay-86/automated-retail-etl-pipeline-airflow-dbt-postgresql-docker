@@ -2,6 +2,7 @@ from python.etl.load_customers import load_customers
 from python.etl.load_products import load_products
 from python.etl.load_orders import load_orders
 from python.utils.logger import logger
+from python.database.init_database import initialize_database
 
 
 def run_pipeline():
@@ -9,7 +10,7 @@ def run_pipeline():
     logger.info("========== ETL Pipeline Started ==========")
 
     print("\nStarting ETL Pipeline...\n")
-
+    initialize_database()
     load_customers()
     load_products()
     load_orders()

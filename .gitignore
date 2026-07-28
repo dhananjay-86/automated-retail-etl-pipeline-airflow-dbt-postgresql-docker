@@ -12,7 +12,7 @@ __pycache__/
 logs/
 *.log
 
-logs/*.log
+
 
 python/utils/test_logger.py
 
