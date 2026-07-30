@@ -7,11 +7,13 @@ def fetch_products():
 
     client = APIClient()
 
-    response = client.get_data("/products")
+    initial_response = client.get_data("/products")
 
-    products = response["products"]
+    total_products = initial_response["total"]
 
-    return pd.DataFrame(products)
+    response = client.get_data(f"/products?limit={total_products}")
+
+    return pd.DataFrame(response["products"])
 
 
 
