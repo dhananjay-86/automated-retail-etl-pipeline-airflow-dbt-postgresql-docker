@@ -1,5 +1,8 @@
 import pandas as pd
 from pathlib import Path
+from python.utils.logger import get_logger
+
+logger = get_logger(__name__)
 
 from python.etl.base_loader import load_data
 
@@ -39,6 +42,7 @@ def load_orders(orders_df):
         )
         for _, row in orders_df.iterrows()
     ]
+    logger.info(f"Rows being inserted: {len(data)}")
 
     load_data(
         data=data,

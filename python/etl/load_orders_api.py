@@ -14,15 +14,15 @@ def run_order_api_pipeline():
 
     orders_df = fetch_orders()
 
-    logger.info(f"Fetched {len(orders_df)} carts")
+    logger.info(f"Fetched carts: {len(orders_df)}")
 
     orders_df = map_orders(orders_df)
 
-    logger.info(f"Flattened into {len(orders_df)} order rows")
+    logger.info(f"Mapped rows: {len(orders_df)}")
 
     orders_df = validate_orders(orders_df)
 
-    logger.info("Order validation completed")
+    logger.info(f"Validated rows: {len(orders_df)}")
 
     load_orders(orders_df)
 

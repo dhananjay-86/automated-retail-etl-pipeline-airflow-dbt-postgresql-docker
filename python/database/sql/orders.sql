@@ -1,13 +1,8 @@
 CREATE TABLE IF NOT EXISTS raw.orders (
-
-    order_id INT PRIMARY KEY,
-
-    customer_id INT,
-
-    product_id INT,
-
-    quantity INT,
-
-    order_date DATE
-
+    order_id INTEGER,
+    customer_id INTEGER,
+    product_id INTEGER,
+    quantity INTEGER,
+    order_date DATE,
+    PRIMARY KEY (order_id, product_id)
 );

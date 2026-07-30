@@ -7,9 +7,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 CUSTOMERS_FILE = PROJECT_ROOT / "data" / "raw" / "customers.csv"
 
 
-def load_customers():
-
-    customers_df = pd.read_csv(CUSTOMERS_FILE)
+def load_customers(customers_df):
 
     insert_query = """
     INSERT INTO raw.customers
@@ -53,4 +51,7 @@ def load_customers():
 
 
 if __name__ == "__main__":
-    load_customers()
+
+    customers_df = pd.read_csv(CUSTOMERS_FILE)
+
+    load_customers(customers_df)

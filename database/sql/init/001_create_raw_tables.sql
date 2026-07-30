@@ -7,7 +7,6 @@ CREATE TABLE raw.customers (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-
 CREATE TABLE raw.products (
     product_id INTEGER PRIMARY KEY,
     product_name VARCHAR(255) NOT NULL,
@@ -17,11 +16,14 @@ CREATE TABLE raw.products (
 );
 
 CREATE TABLE raw.orders (
-    order_id INTEGER PRIMARY KEY,
+    order_id INTEGER NOT NULL,
     customer_id INTEGER NOT NULL,
     product_id INTEGER NOT NULL,
     quantity INTEGER NOT NULL,
     order_date DATE NOT NULL,
+
+    CONSTRAINT orders_pkey
+        PRIMARY KEY (order_id, product_id),
 
     CONSTRAINT fk_customer
         FOREIGN KEY (customer_id)

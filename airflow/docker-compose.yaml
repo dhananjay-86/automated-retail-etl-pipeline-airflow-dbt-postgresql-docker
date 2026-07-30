@@ -114,7 +114,7 @@ services:
       POSTGRES_DB: retail_analytics_db
 
     ports:
-      - "5433:5432"
+      - "5433exit:5432"
 
     volumes:
       - retail-db-volume:/var/lib/postgresql/data

@@ -1,4 +1,4 @@
-product_id,product_name,category,price,stock
+product_id,product_name,category,price,stock_quantity
 1,Product 1,Electronics,4341.4,492
 2,Product 2,Electronics,1829.16,499
 3,Product 3,Furniture,1743.11,379

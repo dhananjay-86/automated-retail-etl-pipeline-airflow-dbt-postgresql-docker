@@ -1,7 +1,9 @@
 from psycopg2.extras import execute_values
 
 from python.database.connection import get_connection
-from python.utils.logger import logger
+from python.utils.logger import get_logger
+
+logger = get_logger(__name__)
 
 
 def load_data(data, insert_query, entity_name):

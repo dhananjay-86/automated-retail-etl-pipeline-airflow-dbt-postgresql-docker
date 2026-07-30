@@ -8,9 +8,9 @@ from airflow.operators.empty import EmptyOperator
 from airflow.operators.python import PythonOperator
 
 from python.database.init_database import initialize_database
-from python.etl.load_customers import load_customers
-from python.etl.load_products import load_products
-from python.etl.load_orders import load_orders
+from python.etl.load_customers_api import run_customer_api_pipeline
+from python.etl.load_products_api import run_product_api_pipeline
+from python.etl.load_orders_api import run_order_api_pipeline
 
 
 # Default settings applied to all tasks
@@ -42,24 +42,24 @@ with DAG(
         execution_timeout=timedelta(minutes=5),
     )
 
-    # Load Customers
+    # Load Customers from API
     customers = PythonOperator(
-        task_id="load_customers",
-        python_callable=load_customers,
+        task_id="load_customers_api",
+        python_callable=run_customer_api_pipeline,
         execution_timeout=timedelta(minutes=5),
     )
 
-    # Load Products
+    # Load Products from API
     products = PythonOperator(
-        task_id="load_products",
-        python_callable=load_products,
+        task_id="load_products_api",
+        python_callable=run_product_api_pipeline,
         execution_timeout=timedelta(minutes=5),
     )
 
-    # Load Orders
+    # Load Orders from API
     orders = PythonOperator(
-        task_id="load_orders",
-        python_callable=load_orders,
+        task_id="load_orders_api",
+        python_callable=run_order_api_pipeline,
         execution_timeout=timedelta(minutes=5),
     )
 
@@ -69,4 +69,11 @@ with DAG(
     )
 
     # Task Dependencies
-    start >> initialize_db >> customers >> products >> orders >> end
+    (
+        start
+        >> initialize_db
+        >> customers
+        >> products
+        >> orders
+        >> end
+    )
