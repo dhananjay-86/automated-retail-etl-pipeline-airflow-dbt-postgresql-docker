@@ -1,3 +1,6 @@
+from python.utils.logger import get_logger
+
+logger = get_logger(__name__)
 from python.api.fetch_products import fetch_products
 
 from python.mappers.product_mapper import map_products
@@ -9,23 +12,23 @@ from python.etl.load_products import load_products
 
 def run_product_api_pipeline():
 
-    print("Fetching products from API...")
+    logger.info("Fetching products from API...")
 
     products_df = fetch_products()
 
-    print(f"Fetched {len(products_df)} products")
+    logger.info(f"Fetched {len(products_df)} products")
 
     products_df = map_products(products_df)
 
-    print("Product mapping completed")
+    logger.info("Product mapping completed")
 
     products_df = validate_products(products_df)
 
-    print("Product validation completed")
+    logger.info("Product validation completed")
 
     load_products(products_df)
 
-    print("Product API pipeline completed successfully.")
+    logger.info("Product API pipeline completed successfully.")
 
 
 if __name__ == "__main__":

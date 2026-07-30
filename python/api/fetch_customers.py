@@ -20,8 +20,6 @@ def fetch_customers():
     return df
 
 
-if __name__ == "__main__":
 
-    df = fetch_customers()
 
-    print(df.head())
+

@@ -14,12 +14,3 @@ def fetch_orders():
     return pd.DataFrame(carts)
 
 
-if __name__ == "__main__":
-
-    df = fetch_orders()
-
-    print(df.head())
-
-    print(df.columns)
-
-    print(f"\nTotal Orders: {len(df)}")
