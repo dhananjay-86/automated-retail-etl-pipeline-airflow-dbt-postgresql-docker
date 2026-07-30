@@ -1,9 +1,12 @@
 import pandas as pd
+from datetime import date
 
 
 def map_orders(orders_df):
 
     rows = []
+
+    ingestion_date = date.today()
 
     for _, order in orders_df.iterrows():
 
@@ -18,7 +21,7 @@ def map_orders(orders_df):
                     "customer_id": customer_id,
                     "product_id": product["id"],
                     "quantity": product["quantity"],
-                    "order_date": None
+                    "order_date": ingestion_date
                 }
             )
 
