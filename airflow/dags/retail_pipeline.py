@@ -6,6 +6,7 @@ sys.path.append("/opt/project")
 from airflow import DAG
 from airflow.operators.empty import EmptyOperator
 from airflow.operators.python import PythonOperator
+from airflow.operators.bash import BashOperator
 
 from python.database.init_database import initialize_database
 from python.etl.load_customers_api import run_customer_api_pipeline
@@ -63,6 +64,22 @@ with DAG(
         execution_timeout=timedelta(minutes=5),
     )
 
+    # Run dbt models
+    dbt_run = BashOperator(
+        task_id="dbt_run",
+        cwd="/opt/project/retail_dbt",
+        bash_command="dbt run",
+        execution_timeout=timedelta(minutes=10),
+    )
+
+    # Run dbt tests
+    dbt_test = BashOperator(
+        task_id="dbt_test",
+        cwd="/opt/project/retail_dbt",
+        bash_command="dbt test",
+        execution_timeout=timedelta(minutes=10),
+    )
+
     # End Task
     end = EmptyOperator(
         task_id="end"
@@ -75,5 +92,7 @@ with DAG(
         >> customers
         >> products
         >> orders
+        >> dbt_run
+        >> dbt_test
         >> end
     )

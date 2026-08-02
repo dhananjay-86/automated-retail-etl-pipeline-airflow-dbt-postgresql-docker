@@ -7,7 +7,7 @@ def fetch_orders():
 
     client = APIClient()
 
-    response = client.get_data("/carts")
+    response = client.get_data("/carts?limit=100&skip=0")
 
     carts = response["carts"]
 

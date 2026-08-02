@@ -1,17 +1,21 @@
+from datetime import date, timedelta
+import random
 import pandas as pd
-from datetime import date
 
 
 def map_orders(orders_df):
 
     rows = []
 
-    ingestion_date = date.today()
-
     for _, order in orders_df.iterrows():
 
         order_id = order["id"]
         customer_id = order["userId"]
+
+        # One date per order
+        order_date = date.today() - timedelta(
+            days=random.randint(0, 90)
+        )
 
         for product in order["products"]:
 
@@ -21,7 +25,7 @@ def map_orders(orders_df):
                     "customer_id": customer_id,
                     "product_id": product["id"],
                     "quantity": product["quantity"],
-                    "order_date": ingestion_date
+                    "order_date": order_date
                 }
             )
 

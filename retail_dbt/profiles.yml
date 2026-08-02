@@ -1,0 +1,12 @@
+retail_dbt:
+  outputs:
+    dev:
+      type: postgres
+      host: retail-postgres
+      port: 5432
+      user: postgres
+      pass: Unique@987
+      dbname: retail_analytics_db
+      schema: analytics
+      threads: 4
+  target: dev

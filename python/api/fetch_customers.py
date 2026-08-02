@@ -11,7 +11,7 @@ def fetch_customers():
 
     client = APIClient()
 
-    data = client.get_data("/users")
+    data = client.get_data("/users?limit=208&skip=0")
 
     customers = data["users"]
 

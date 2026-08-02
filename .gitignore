@@ -1,24 +1,61 @@
-# Virtual Environment
-venv/
-
-# Environment Variables
-.env
-
-# Python Cache
+# =========================
+# Python
+# =========================
 __pycache__/
 *.py[cod]
+*$py.class
 
-# Log Files
-logs/
-*.log
+# Virtual environments
+.venv/
+venv/
+env/
 
+# =========================
+# Environment files
+# =========================
+.env
+.env.docker
+airflow/.env
 
+# Keep the example configuration
+!.env.example
 
-python/utils/test_logger.py
+# =========================
+# Airflow
+# =========================
+airflow/logs/
 
-dbt_project/retail_analytics/logs/
-dbt_project/retail_analytics/target/
-dbt_project/retail_analytics/dbt_packages/
+# =========================
+# dbt
+# =========================
+retail_dbt/logs/
+retail_dbt/target/
+retail_dbt/.user.yml
 
-target/
-dbt_packages/
+# =========================
+# IDE
+# =========================
+.vscode/
+.idea/
+
+# =========================
+# Operating System
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Jupyter
+# =========================
+.ipynb_checkpoints/
+
+# =========================
+# Pytest
+# =========================
+.pytest_cache/
+
+# =========================
+# Coverage
+# =========================
+.coverage
+htmlcov/
