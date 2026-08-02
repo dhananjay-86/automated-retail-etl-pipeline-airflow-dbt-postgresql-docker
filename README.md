@@ -1,4 +1,4 @@
-# 🚀 Automated Retail ETL Data Pipeline
+# 🚀 Automated Retail ETL Pipeline
 
 An end-to-end **Data Engineering** project that automates the extraction, validation, transformation, and loading of retail data from the DummyJSON REST API into PostgreSQL using **Python**, **Apache Airflow**, **dbt**, and **Docker**, with interactive business insights delivered through **Power BI**.
 
@@ -31,6 +31,7 @@ The pipeline extracts customer, product, and order data from the DummyJSON REST 
 
 <h2 id="architecture">🏗 Architecture</h2>
 
+```
 DummyJSON REST API
           │
           ▼
@@ -50,6 +51,7 @@ DummyJSON REST API
           │
           ▼
    Power BI (Executive / Customer / Product dashboards)
+```
 
 ---
 
