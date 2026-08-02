@@ -31,7 +31,25 @@ The pipeline extracts customer, product, and order data from the DummyJSON REST 
 
 <h2 id="architecture">🏗 Architecture</h2>
 
-![Pipeline Architecture](screenshots/06_Pipeline_architecture.jpg)
+DummyJSON REST API
+          │
+          ▼
+   Apache Airflow (daily DAG, orchestration + retries)
+          │
+          ▼
+   Python ETL (extract → validate → map → load)
+          │
+          ▼
+   PostgreSQL — raw schema (system of record)
+          │
+          ▼
+   dbt staging models (clean, standardize, test)
+          │
+          ▼
+   dbt mart models (dimensional: facts + dimensions)
+          │
+          ▼
+   Power BI (Executive / Customer / Product dashboards)
 
 ---
 
@@ -66,7 +84,43 @@ The pipeline extracts customer, product, and order data from the DummyJSON REST 
 
 <h2 id="project-structure">📂 Project Structure</h2>
 
-(Your project structure goes here.)
+Automated-ETL-Data-Pipeline/
+│
+├── airflow/
+│   ├── dags/
+│   │   └── retail_pipeline.py       # Main DAG: retail_etl_pipeline
+│   ├── config/                      # Airflow configuration
+│   ├── docker-compose.yaml          # Airflow + PostgreSQL services
+│   └── Dockerfile                   # Custom Airflow image (adds dbt + project deps)
+│
+├── database/
+│   └── sql/init/                    # Raw schema DDL (customers, products, orders)
+│
+├── python/
+│   ├── api/                         # DummyJSON API client + per-entity fetchers
+│   ├── config/                      # Database configuration
+│   ├── database/                    # Connection handling + DB initialization
+│   ├── etl/                         # Extract → transform → load orchestration per entity
+│   ├── mappers/                     # Maps raw API JSON → relational schema
+│   ├── validators/                  # Pre-load data validation per entity
+│   └── utils/                       # Logging utilities
+│
+├── retail_dbt/
+│   ├── models/
+│   │   ├── staging/                 # stg_customers, stg_products, stg_orders (+ schema.yml)
+│   │   └── marts/
+│   │       ├── dimensions/          # dim_customers, dim_products
+│   │       └── facts/               # fact_orders
+│   ├── dbt_project.yml
+│   └── profiles.yml
+│
+├── powerbi/
+│   └── Retail Sales Analytics Dashboard.pbix
+│
+├── docs/                            # Per-layer documentation (01–09)
+├── screenshots/                     # README images
+├── requirements.txt
+└── README.md
 
 ---
 
@@ -98,13 +152,46 @@ Power BI Dashboard
 
 <h2 id="power-bi-dashboard">📊 Power BI Dashboard</h2>
 
-Describe your three dashboard pages here.
+The .pbix file connects directly to the analytics schema and is organized into three report pages:
+
+1. Executive Dashboard Top-level KPIs for quick business health checks: Total Revenue, Total Orders, Total Customers, Total Products.
+
+2. Customer Insights Customer-level analysis: top customers by spend, order distribution by city, and overall customer segmentation.
+
+3. Product Performance Product-level analysis: best-selling products, revenue by category, and stock/sales performance.
 
 ---
 
 <h2 id="screenshots">📸 Screenshots</h2>
 
-(Add your screenshots here.)
+## Executive Dashboard
+
+![Executive Dashboard](screenshots/01_Executive_Dashboard.png)
+
+---
+
+## Customer Insights
+
+![Customer Insights](screenshots/02_Customer_Insights.png)
+
+---
+
+## Product Performance
+
+![Product Performance](screenshots/03_Product_Performance.png)
+
+---
+
+## Airflow DAG
+
+![Airflow DAG](screenshots/04_Airflow_dag_success.png)
+
+---
+
+## Airflow Logs
+
+![Airflow Logs](screenshots/05_Airflow_task_logs.png)
+
 
 ---
 
@@ -113,7 +200,7 @@ Describe your three dashboard pages here.
 ### 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/dhananjay-86/automated-retail-etl-pipeline-airflow-dbt-postgresql-docker.git
 ```
 
 ### 2. Install Dependencies
@@ -189,7 +276,7 @@ Aspiring Data Engineer | Data Analyst
 
 ### 📫 Contact
 
-- **Email:** katremonu86@gmail.com
+- **Email:** dhananjaykatre86@gmail.com
 - **LinkedIn:** https://www.linkedin.com/in/dhananjay-katre-0418b63a2/
 
 ---
