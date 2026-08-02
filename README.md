@@ -83,7 +83,7 @@ DummyJSON REST API
 ---
 
 <h2 id="project-structure">📂 Project Structure</h2>
-
+'''
 Automated-ETL-Data-Pipeline/
 │
 ├── airflow/
@@ -121,7 +121,7 @@ Automated-ETL-Data-Pipeline/
 ├── screenshots/                     # README images
 ├── requirements.txt
 └── README.md
-
+'''
 ---
 
 <h2 id="pipeline-workflow">⚙ Pipeline Workflow</h2>
