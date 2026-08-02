@@ -83,7 +83,7 @@ DummyJSON REST API
 ---
 
 <h2 id="project-structure">📂 Project Structure</h2>
-'''
+```text
 Automated-ETL-Data-Pipeline/
 │
 ├── airflow/
@@ -97,31 +97,31 @@ Automated-ETL-Data-Pipeline/
 │   └── sql/init/                    # Raw schema DDL (customers, products, orders)
 │
 ├── python/
-│   ├── api/                         # DummyJSON API client + per-entity fetchers
-│   ├── config/                      # Database configuration
-│   ├── database/                    # Connection handling + DB initialization
-│   ├── etl/                         # Extract → transform → load orchestration per entity
-│   ├── mappers/                     # Maps raw API JSON → relational schema
-│   ├── validators/                  # Pre-load data validation per entity
-│   └── utils/                       # Logging utilities
+│   ├── api/
+│   ├── config/
+│   ├── database/
+│   ├── etl/
+│   ├── mappers/
+│   ├── validators/
+│   └── utils/
 │
 ├── retail_dbt/
 │   ├── models/
-│   │   ├── staging/                 # stg_customers, stg_products, stg_orders (+ schema.yml)
+│   │   ├── staging/
 │   │   └── marts/
-│   │       ├── dimensions/          # dim_customers, dim_products
-│   │       └── facts/               # fact_orders
+│   │       ├── dimensions/
+│   │       └── facts/
 │   ├── dbt_project.yml
 │   └── profiles.yml
 │
 ├── powerbi/
 │   └── Retail Sales Analytics Dashboard.pbix
 │
-├── docs/                            # Per-layer documentation (01–09)
-├── screenshots/                     # README images
+├── docs/
+├── screenshots/
 ├── requirements.txt
 └── README.md
-'''
+```
 ---
 
 <h2 id="pipeline-workflow">⚙ Pipeline Workflow</h2>
